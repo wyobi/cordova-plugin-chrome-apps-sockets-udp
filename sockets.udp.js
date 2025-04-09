@@ -200,7 +200,12 @@ function registerReceiveEvents() {
         var error = function() {
             exports.onReceiveError.fire(info);
         };
-        callbackWithError(info.message, error);
+        if(typeof(info) === 'object') {
+            callbackWithError(info.message, error);
+        }
+        else {
+            callbackWithError(info, error);
+        }
     };
     exec(win, fail, 'ChromeSocketsUdp', 'registerReceiveEvents', []);
 }
